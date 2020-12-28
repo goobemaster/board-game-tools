@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dice Hotel</title>
+    <meta name="description" content="Dice Hotel">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Dice Hotel">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost/">
+    <meta property="og:image" content="favicon.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <meta name="theme-color" content="#fafafa">
+
+    <style>
+        html, html * {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: url("opening-static-2560x1440.jpg") no-repeat center center fixed;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            position: relative;
+        }
+        main {
+            display: flex;
+            position: fixed;
+            width: 50%;
+            height: 50%;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        main img {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            max-height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <section id="d6">
+            <img src="dice_six_side_1.png" alt="dice 1">
+            <img src="dice_six_side_2.png" alt="dice 2" style="display: none;">
+            <img src="dice_six_side_3.png" alt="dice 3" style="display: none;">
+            <img src="dice_six_side_4.png" alt="dice 4" style="display: none;">
+            <img src="dice_six_side_5.png" alt="dice 5" style="display: none;">
+            <img src="dice_six_side_6.png" alt="dice 6" style="display: none;">
+        </section>
+        <section id="lot">
+            <img src="dice_lot_1.png" alt="dice red" style="display: none;">
+            <img src="dice_lot_2.png" alt="dice green">
+            <img src="dice_lot_2.png" alt="dice green" style="display: none;">
+            <img src="dice_lot_3.png" alt="dice double" style="display: none;">
+            <img src="dice_lot_2.png" alt="dice green" style="display: none;">
+            <img src="dice_lot_4.png" alt="dice free" style="display: none;">
+        </section>
+    </main>
+
+    <script>
+        const MIN = 1;
+        const MAX = 6;
+        const ELAN_MIN = 15;
+        const ELAN_MAX = 55;
+        var roll = false;
+        var rollInterval = null;
+        var diceAll = [
+            document.querySelectorAll('#d6 img'),
+            document.querySelectorAll('#lot img'),            
+        ];
+        var dice;
+        function throwHandler() {
+            if (roll = !roll) {
+                rollInterval = setInterval(function () {
+                    side = randomInt(MIN, MAX);
+                    diceAll[dice].forEach(function (e) { e.style.display = 'none'; });
+                    diceAll[dice][side - 1].style.display = 'block';
+                }, randomInt(ELAN_MIN, ELAN_MAX));
+            } else {
+                clearInterval(rollInterval);
+            }
+        }
+        document.querySelector('#d6').addEventListener('click', function () {
+            if (roll && dice === 1) return;
+            dice = 0;
+            throwHandler();
+        });
+        document.querySelector('#lot').addEventListener('click', function () {
+            if (roll && dice === 0) return;
+            dice = 1;
+            throwHandler();
+        });
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    </script>
+
+</body>
+
+</html>
