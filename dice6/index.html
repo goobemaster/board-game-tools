@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" manifest="dice6.appcache.php">
 
 <head>
     <meta charset="utf-8">
@@ -46,32 +46,46 @@
         }
         main img {
             position: relative;
-            width: auto;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            max-height: 500px;
         }
     </style>
 </head>
 
 <body>
 
-    <main><img src="dice_six_side_1.png" alt="dice"></main>
+    <main>
+        <img src="dice_six_side_1.png" alt="dice 1">
+        <img src="dice_six_side_2.png" alt="dice 2" style="display: none;">
+        <img src="dice_six_side_3.png" alt="dice 3" style="display: none;">
+        <img src="dice_six_side_4.png" alt="dice 4" style="display: none;">
+        <img src="dice_six_side_5.png" alt="dice 5" style="display: none;">
+        <img src="dice_six_side_6.png" alt="dice 6" style="display: none;">               
+    </main>
 
     <script>
         const MIN = 1;
         const MAX = 6;
-        const ELAN_MIN = 7;
-        const ELAN_MAX = 22;
+        const ELAN_MIN = 15;
+        const ELAN_MAX = 55;
         var roll = false;
         var rollInterval = null;
-        var dice = document.querySelector('main img');
-        document.addEventListener('keydown', function () {
+        var diceAll = document.querySelectorAll('main img');
+        function throwHandler() {
             if (roll = !roll) {
                 rollInterval = setInterval(function () {
-                    dice.src = `dice_six_side_${randomInt(MIN, MAX).toString()}.png`;
+                    side = randomInt(MIN, MAX);
+                    diceAll.forEach(function (e) { e.style.display = 'none'; });
+                    document.querySelector(`main img:nth-child(${side.toString()})`).style.display = 'block';
                 }, randomInt(ELAN_MIN, ELAN_MAX));
             } else {
                 clearInterval(rollInterval);
             }
-        });
+        }
+        document.addEventListener('keydown', throwHandler);
+        document.addEventListener('click', throwHandler);
         function randomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
