@@ -1,6 +1,10 @@
 # board-game-tools
 Just a couple of web based helpers - like a virtual dice - for playing various board games.
 
+If you like this project, or found it useful:
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/kodenkel)
+
 ## Contents
 
 - [Six Sided Dice (D6)](#six-sided-dice-d6)
